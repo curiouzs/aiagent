@@ -20,13 +20,21 @@ This way we can define a robot vacuuum cleaner.
 ### STEP 1:
 Identifying the input:
 
+The agent must take the input (percept) from the environment.
+
 ### STEP 2:
 Identifying the output:
 
+Through the given percept, the agent must perform the right action that is correct.
+
 ### STEP 3:
 Developing the PEAS description:
+
+Develop the PEAS description which is to know the sensors, performance, environment and actuators and its functionalities.
+
 ### STEP 4:
 Implementing the AI agent
+
 
 ### STEP 5:
 Measure the performance parameters
