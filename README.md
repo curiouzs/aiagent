@@ -10,10 +10,8 @@ Explain the problem statement
 ## PEAS DESCRIPTION
 
 
-Agent Type	Performance Measure	Environment	Actuators	Sensors
-Vaccum-Cleaner	Cleanliness, Number of Movements	Rooms	Wheels, suction tool	Location, Cleanliness
-
 ## DESIGN STEPS
+
 ### STEP 1:
 Identifying the input:
 
