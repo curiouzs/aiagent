@@ -28,86 +28,86 @@ Measure the performance parameters
 ## PROGRAM
 Include your agent code here
 
+```
+import random
 
-      import random
+class Thing:
+    """
+        This represents any physical object that can appear in an Environment.
+    """
 
-      class Thing:
-          """
-              This represents any physical object that can appear in an Environment.
-          """
+    def is_alive(self):
+        """Things that are 'alive' should return true."""
+        return hasattr(self, 'alive') and self.alive
 
-          def is_alive(self):
-              """Things that are 'alive' should return true."""
-              return hasattr(self, 'alive') and self.alive
-
-          def show_state(self):
-              """Display the agent's internal state. Subclasses should override."""
-              print("I don't know how to show_state.")
-
-
-      class Agent(Thing):
-          """
-              An Agent is a subclass of Thing
-          """
-
-          def __init__(self, program=None):
-              self.alive = True
-              self.performance = 0
-              self.program = program
-
-          def can_grab(self, thing):
-              """Return True if this agent can grab this thing.
-              Override for appropriate subclasses of Agent and Thing."""
-              return False
-
-      def TableDrivenAgentProgram(table):
-          """
-          [Figure 2.7]
-          This agent selects an action based on the percept sequence.
-          It is practical only for tiny domains.
-          To customize it, provide as table a dictionary of all
-          {percept_sequence:action} pairs.
-          """
-          percepts = []
-
-          def program(percept):
-              action =None
-              percepts.append(percept)
-              action=table.get(tuple(percepts))
-              return action
-
-          return program
-
-      loc_A, loc_B = (0, 0), (1, 0)  # The two locations for the Vacuum world
+    def show_state(self):
+        """Display the agent's internal state. Subclasses should override."""
+        print("I don't know how to show_state.")
 
 
-      def TableDrivenVacuumAgent():
-          """
-          Tabular approach towards vacuum world
-          """
-          table = {((loc_A, 'Clean'),): 'Right',
-                   ((loc_A, 'Dirty'),): 'Suck',
-                   ((loc_B, 'Clean'),): 'Left',
-                   ((loc_B, 'Dirty'),): 'Suck',
-                   ((loc_A, 'Dirty'), (loc_A, 'Clean')): 'Right',
-                   ((loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
-                   ((loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck',
-                   ((loc_B, 'Dirty'), (loc_B, 'Clean')): 'Left',
-                   ((loc_A, 'Dirty'), (loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
-                   ((loc_B, 'Dirty'), (loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck'}
-          return Agent(TableDrivenAgentProgram(table))
+class Agent(Thing):
+    """
+        An Agent is a subclass of Thing
+    """
+
+    def __init__(self, program=None):
+        self.alive = True
+        self.performance = 0
+        self.program = program
+
+    def can_grab(self, thing):
+        """Return True if this agent can grab this thing.
+        Override for appropriate subclasses of Agent and Thing."""
+        return False
+
+def TableDrivenAgentProgram(table):
+    """
+    [Figure 2.7]
+    This agent selects an action based on the percept sequence.
+    It is practical only for tiny domains.
+    To customize it, provide as table a dictionary of all
+    {percept_sequence:action} pairs.
+    """
+    percepts = []
+
+    def program(percept):
+        action =None
+        percepts.append(percept)
+        action=table.get(tuple(percepts))
+        return action
+
+    return program
+
+loc_A, loc_B = (0, 0), (1, 0)  # The two locations for the Vacuum world
 
 
-      class Environment:
-          """Abstract class representing an Environment. 'Real' Environment classes
-          inherit from this. Your Environment will typically need to implement:
-              percept:           Define the percept that an agent sees.
-              execute_action:    Define the effects of executing an action.
-                                 Also update the agent.performance slot.
-          The environment keeps a list of .things and .agents (which is a subset
-          of .things). Each agent has a .performance slot, initialized to 0.
-          Each thing has a .location slot, even though some environments may not
-          need this."""
+def TableDrivenVacuumAgent():
+    """
+    Tabular approach towards vacuum world
+    """
+    table = {((loc_A, 'Clean'),): 'Right',
+             ((loc_A, 'Dirty'),): 'Suck',
+             ((loc_B, 'Clean'),): 'Left',
+             ((loc_B, 'Dirty'),): 'Suck',
+             ((loc_A, 'Dirty'), (loc_A, 'Clean')): 'Right',
+             ((loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
+             ((loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck',
+             ((loc_B, 'Dirty'), (loc_B, 'Clean')): 'Left',
+             ((loc_A, 'Dirty'), (loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
+             ((loc_B, 'Dirty'), (loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck'}
+    return Agent(TableDrivenAgentProgram(table))
+
+
+class Environment:
+    """Abstract class representing an Environment. 'Real' Environment classes
+    inherit from this. Your Environment will typically need to implement:
+        percept:           Define the percept that an agent sees.
+        execute_action:    Define the effects of executing an action.
+                           Also update the agent.performance slot.
+    The environment keeps a list of .things and .agents (which is a subset
+    of .things). Each agent has a .performance slot, initialized to 0.
+    Each thing has a .location slot, even though some environments may not
+    need this."""
 
     def __init__(self):
         self.things = []
@@ -179,11 +179,11 @@ Include your agent code here
             self.agents.remove(thing)
 
 
-    class TrivialVacuumEnvironment(Environment):
-        """This environment has two locations, A and B. Each can be Dirty
-        or Clean. The agent perceives its location and the location's
-        status. This serves as an example of how to implement a simple
-        Environment."""
+class TrivialVacuumEnvironment(Environment):
+    """This environment has two locations, A and B. Each can be Dirty
+    or Clean. The agent perceives its location and the location's
+    status. This serves as an example of how to implement a simple
+    Environment."""
 
     def __init__(self):
         super().__init__()
@@ -216,16 +216,16 @@ Include your agent code here
         """Agents start in either location at random."""
         return random.choice([loc_A, loc_B])
         
-    if __name__ == "__main__":
-        agent = TableDrivenVacuumAgent()
-        environment = TrivialVacuumEnvironment()
-        environment.add_thing(agent)
-        print(environment.status)
-        environment.run(steps=10)
-        print(environment.status)
-        print(agent.performance)
+if __name__ == "__main__":
+    agent = TableDrivenVacuumAgent()
+    environment = TrivialVacuumEnvironment()
+    environment.add_thing(agent)
+    print(environment.status)
+    environment.run(steps=10)
+    print(environment.status)
+    print(agent.performance)
     
-
+```
 
 ## OUTPUT
 ![Untitled4 - Jupyter Notebook and 1 more page - Personal - Microsoft​ Edge 07-04-2022 00_00_57](https://user-images.githubusercontent.com/75234646/162044344-276d6bf2-58ba-42fe-864e-9193421d9e2c.png)
