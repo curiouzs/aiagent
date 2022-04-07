@@ -9,6 +9,10 @@ Explain the problem statement
 
 ## PEAS DESCRIPTION
 
+## PEAS DESCRIPTION
+| Agent type    | performance  measurement      |environment  |   Actuators         |  sensors                       | 
+|-------------  | ---------------------------   | ----------- |-------------------- | ------------------------------ | 
+| Vaccum cleaner| Cleanliness ,Moving locations| Room locations       |  Brushes and Vaccum Extractor|  Camera,Dirt detection sensor |
 
 ## DESIGN STEPS
 
@@ -29,7 +33,7 @@ Measure the performance parameters
 ## PROGRAM
 Include your agent code here
 
-```
+'''
 import random
 
 class Thing:
@@ -226,7 +230,7 @@ if __name__ == "__main__":
     print(environment.status)
     print(agent.performance)
     
-```
+
 
 ## OUTPUT
 ![Untitled4 - Jupyter Notebook and 1 more page - Personal - Microsoft​ Edge 07-04-2022 00_00_57](https://user-images.githubusercontent.com/75234646/162044344-276d6bf2-58ba-42fe-864e-9193421d9e2c.png)
