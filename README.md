@@ -5,9 +5,10 @@
 To find the PEAS description for the given AI problem and develop an AI agent.
 
 ## THEORY
-Explain the problem statement
+We are given with two locations: Location A and Location B which can be either clean or dirty.
+The Agent has to clean the environment if its dirty and if its clean, it should switch to the other location and repeat the process.
+This way we can define a robot vacuuum cleaner.
 
-## PEAS DESCRIPTION
 
 ## PEAS DESCRIPTION
 | Agent type    | performance  measurement      |environment  |   Actuators         |  sensors                       | 
@@ -33,13 +34,14 @@ Measure the performance parameters
 ## PROGRAM
 Include your agent code here
 
-'''
-import random
+```python
 
-class Thing:
-    """
-        This represents any physical object that can appear in an Environment.
-    """
+    import random
+
+    class Thing:
+        """
+            This represents any physical object that can appear in an Environment.
+        """
 
     def is_alive(self):
         """Things that are 'alive' should return true."""
@@ -50,10 +52,10 @@ class Thing:
         print("I don't know how to show_state.")
 
 
-class Agent(Thing):
-    """
-        An Agent is a subclass of Thing
-    """
+    class Agent(Thing):
+        """
+            An Agent is a subclass of Thing
+        """
 
     def __init__(self, program=None):
         self.alive = True
@@ -65,15 +67,14 @@ class Agent(Thing):
         Override for appropriate subclasses of Agent and Thing."""
         return False
 
-def TableDrivenAgentProgram(table):
-    """
-    [Figure 2.7]
-    This agent selects an action based on the percept sequence.
-    It is practical only for tiny domains.
-    To customize it, provide as table a dictionary of all
-    {percept_sequence:action} pairs.
-    """
-    percepts = []
+    def TableDrivenAgentProgram(table):
+        """
+        This agent selects an action based on the percept sequence.
+        It is practical only for tiny domains.
+        To customize it, provide as table a dictionary of all
+        {percept_sequence:action} pairs.
+        """
+        percepts = []
 
     def program(percept):
         action =None
@@ -83,36 +84,36 @@ def TableDrivenAgentProgram(table):
 
     return program
 
-loc_A, loc_B = (0, 0), (1, 0)  # The two locations for the Vacuum world
+    loc_A, loc_B = (0, 0), (1, 0)  # The two locations for the Vacuum world
 
 
-def TableDrivenVacuumAgent():
-    """
-    Tabular approach towards vacuum world
-    """
-    table = {((loc_A, 'Clean'),): 'Right',
-             ((loc_A, 'Dirty'),): 'Suck',
-             ((loc_B, 'Clean'),): 'Left',
-             ((loc_B, 'Dirty'),): 'Suck',
-             ((loc_A, 'Dirty'), (loc_A, 'Clean')): 'Right',
-             ((loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
-             ((loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck',
-             ((loc_B, 'Dirty'), (loc_B, 'Clean')): 'Left',
-             ((loc_A, 'Dirty'), (loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
-             ((loc_B, 'Dirty'), (loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck'}
-    return Agent(TableDrivenAgentProgram(table))
+    def TableDrivenVacuumAgent():
+        """
+        Tabular approach towards vacuum world
+        """
+        table = {((loc_A, 'Clean'),): 'Right',
+                 ((loc_A, 'Dirty'),): 'Suck',
+                 ((loc_B, 'Clean'),): 'Left',
+                 ((loc_B, 'Dirty'),): 'Suck',
+                 ((loc_A, 'Dirty'), (loc_A, 'Clean')): 'Right',
+                 ((loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
+                 ((loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck',
+                 ((loc_B, 'Dirty'), (loc_B, 'Clean')): 'Left',
+                 ((loc_A, 'Dirty'), (loc_A, 'Clean'), (loc_B, 'Dirty')): 'Suck',
+                 ((loc_B, 'Dirty'), (loc_B, 'Clean'), (loc_A, 'Dirty')): 'Suck'}
+        return Agent(TableDrivenAgentProgram(table))
 
 
-class Environment:
-    """Abstract class representing an Environment. 'Real' Environment classes
-    inherit from this. Your Environment will typically need to implement:
-        percept:           Define the percept that an agent sees.
-        execute_action:    Define the effects of executing an action.
-                           Also update the agent.performance slot.
-    The environment keeps a list of .things and .agents (which is a subset
-    of .things). Each agent has a .performance slot, initialized to 0.
-    Each thing has a .location slot, even though some environments may not
-    need this."""
+    class Environment:
+        """Abstract class representing an Environment. 'Real' Environment classes
+        inherit from this. Your Environment will typically need to implement:
+            percept:           Define the percept that an agent sees.
+            execute_action:    Define the effects of executing an action.
+                               Also update the agent.performance slot.
+        The environment keeps a list of .things and .agents (which is a subset
+        of .things). Each agent has a .performance slot, initialized to 0.
+        Each thing has a .location slot, even though some environments may not
+        need this."""
 
     def __init__(self):
         self.things = []
@@ -184,11 +185,11 @@ class Environment:
             self.agents.remove(thing)
 
 
-class TrivialVacuumEnvironment(Environment):
-    """This environment has two locations, A and B. Each can be Dirty
-    or Clean. The agent perceives its location and the location's
-    status. This serves as an example of how to implement a simple
-    Environment."""
+    class TrivialVacuumEnvironment(Environment):
+        """This environment has two locations, A and B. Each can be Dirty
+        or Clean. The agent perceives its location and the location's
+        status. This serves as an example of how to implement a simple
+        Environment."""
 
     def __init__(self):
         super().__init__()
@@ -205,7 +206,6 @@ class TrivialVacuumEnvironment(Environment):
     def execute_action(self, agent, action):
         """Change agent's location and/or location's status; track performance.
         Score 10 for each dirt cleaned; -1 for each move."""
-
         if action=='Right':
             agent.location = loc_B
             agent.performance -=1
@@ -215,21 +215,21 @@ class TrivialVacuumEnvironment(Environment):
         elif action=='Suck':
             if self.status[agent.location]=='Dirty':
                 agent.performance+=10
-                self.status[agent.location]='Clean'
+            self.status[agent.location]='Clean'
 
     def default_location(self, thing):
         """Agents start in either location at random."""
         return random.choice([loc_A, loc_B])
-        
-if __name__ == "__main__":
-    agent = TableDrivenVacuumAgent()
-    environment = TrivialVacuumEnvironment()
-    environment.add_thing(agent)
-    print(environment.status)
-    environment.run(steps=10)
-    print(environment.status)
-    print(agent.performance)
-    
+
+
+    if __name__ == "__main__":
+        agent = TableDrivenVacuumAgent()
+        environment = TrivialVacuumEnvironment()
+        environment.add_thing(agent)
+        print(environment.status)
+        environment.run()
+        print(agent.performance)
+
 
 
 ## OUTPUT
