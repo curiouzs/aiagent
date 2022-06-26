@@ -41,7 +41,10 @@ Measure the performance parameters
 
 ## PROGRAM
 Include your agent code here
-
+```python
+#DEVELOPED BY: M.LOKESH KRISHNAA
+#REGISTER NO: 212220230030
+```
 ```python
 
     import random
@@ -192,8 +195,7 @@ Include your agent code here
         if thing in self.agents:
             self.agents.remove(thing)
 
-
-    class TrivialVacuumEnvironment(Environment):
+   class TrivialVacuumEnvironment(Environment):
         """This environment has two locations, A and B. Each can be Dirty
         or Clean. The agent perceives its location and the location's
         status. This serves as an example of how to implement a simple
@@ -240,12 +242,7 @@ Include your agent code here
 
 
 ```
-
-
 ## OUTPUT
 ![Untitled4 - Jupyter Notebook and 1 more page - Personal - Microsoft​ Edge 07-04-2022 00_00_57](https://user-images.githubusercontent.com/75234646/162044344-276d6bf2-58ba-42fe-864e-9193421d9e2c.png)
-
-
 ## RESULT
-
 Thus an AI agent is developed and the Peas description is mentioned.
